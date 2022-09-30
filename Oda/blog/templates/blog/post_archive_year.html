@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}post_acrvhive_year.html{% endblock %}
+
+{% block extra-style %}
+<style>
+    .w-btn-neon2 {
+        padding-top: 7.5px;
+        display: inline-block;
+        position: relative;
+        border: none;
+        min-width: 80px;
+        min-height: 50px;
+        background: linear-gradient(90deg,
+                rgba(129, 230, 217, 1) 0%,
+                rgba(79, 209, 197, 1) 100%);
+        border-radius: 1000px;
+        color: darkslategray;
+        cursor: pointer;
+        box-shadow: 10px 8px 22px rgba(79, 209, 197, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+        font-size: 20px;
+        text-align: center;
+
+    }
+
+    .w-btn-neon2:hover {
+        transform: scale(1.2);
+        text-decoration-line: none;
+    }
+
+    .w-btn-neon2:hover::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00ffcb;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+
+    .list_date {
+        list-style: none;
+
+    }
+
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        text-decoration-line: none;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+        border-radius: 4%;
+    }
+    .img_link:hover img {
+        transition-duration: 0.7s;
+        border-radius: 4% 4% 0 0;
+    }
+    .card-body:hover {
+        color: blueviolet;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1> Post for {{ year|date:"Y"}} &#128197; </h1><br>
+
+    <ul>
+        {% for date in date_list %}
+        <li style="display: inline;">
+            <a class="w-btn-neon2" href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'m' %}">
+                {{ date|date:"b" }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <br />
+
+    <div>
+        <div class="row">
+            {% for post in object_list %}
+            <div class="col-4">
+                <div class="card">
+                    <a class="img_link" href="{{ post.get_absolute_url }}">
+                        <img src="{{ post.image.url }}" alt="" class="card-img-top" />
+                        <div class="card-body">
+                            <h3 class="card-title">{{ post.title }}</h3>
+
+                            <p class="card-text">{{ post.description }}</p>
+
+                            post - {{ post.modify_dt|date:"N d, Y" }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

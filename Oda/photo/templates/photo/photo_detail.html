@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+{% endblock %}
+<!-- 제목 블록 End -->
+
+<!-- 스타일 블록  Start -->
+{% block extra-style%}
+
+{% endblock %}
+<!-- 스타일 블록 End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+<div class="container">
+    {{object}}<br>
+    <img src="{{ photo.image.url }}" style="width:1200px; height:700px;">
+</div>
+{% endblock %}
+<!-- 콘텐츠 블록 End -->

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block extra-style %}
+<style>
+    h2 {
+        font-weight: bold;
+        padding: 5px 10px;
+        /*  상자내무 간격 : 위아래 5px, 오른쪽왼쪽 15px  */
+        border-bottom:1px solid #0066ff;
+        /*  밑줄 라인 색상,굵기,선종류 설정가능  */
+        border-left:8px solid #1093ff;
+        /*  왼쪽 라인 색상,굵기,선종류 설정가능  */
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2> &#127803; {{ post.title }} &#127803; </h2>
+    <p>{{ post.modify_dt|date:"j F Y" }}</p>
+
+    <p>
+        {% if post.get_previous %}
+        <a href="{{ post.get_previous.get_absolute_url }}" title="View previous post">
+            &laquo;-- {{ post.get_previous }}
+        </a>
+        {% endif %}
+
+        {% if post.get_next %}
+        | <a href="{{ post.get_next.get_absolute_url }}" title="View next post">
+            {{ post.get_next }}-- &laquo;
+        </a>
+        {% endif %}
+    </p>
+
+<!-- <div class="poster_description"> </div> -->
+<div class="poster">
+    <img src="{{ post.image.url }}" alt="" height="650" width="500">
+</div>
+    <br>
+    
+    <div class="body">
+        {{ post.content|linebreaks }}
+    </div>
+    <br>
+
+    <div>
+        <b>TAGS</b> <i class="fas fa-tag"></i>
+        {% load taggit_templatetags2_tags %}
+        {% get_tags_for_object object as "tags" %}
+        {% for tag in tags %}
+
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+        &emsp;
+
+        <a href="{% url 'blog:tag_cloud' %}"> <span class='btn btn-info btn-sm'>TagCloud</span></a>
+    </div>
+    <div id="disqus_thread"></div>
+</div>
+{% endblock %}
+
+{% block extra-script %}
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://django-oda.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}blog search page{% endblock %}
+
+{% block extra-style %}
+<style>
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        text-decoration-line: none;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+        border-radius: 4%;
+    }
+
+    .img_link:hover img {
+        transition-duration: 0.7s;
+        border-radius: 4% 4% 0 0;
+    }
+
+    .card-body:hover {
+        color: blueviolet;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Blog Search</h1><br>
+
+    <form method="post"> {% csrf_token %}
+        {{ form }}
+        <input type="submit" value='검색' class='btn btn-primary btn-sm'>
+    </form>
+
+    <br>
+
+    {% if object_list %}
+    <h4> &#128270; "{{search_term}}"</h4>
+
+    <div class="row">
+        {% for post in object_list %}
+
+        <div class="col-4">
+            <div class="card">
+                <a class="img_link" href="{{ post.get_absolute_url }}">
+                    <img src="{{ post.image.url }}" alt="" class="card-img-top" />
+                    <div class="card-body">
+                        <h3 class="card-title">{{ post.title }}</h3>
+
+                        <p class="card-text">{{ post.description }}</p>
+
+                        post - {{ post.modify_dt|date:"N d, Y" }}
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post }}</a></h2>
+
+            <p>{{ post.description }}</p> -->
+    {% endfor %}
+    </div>
+
+    {% elif search_term%}
+    <b><i>Search Word({{ search_term }}) Not Found !</i></b>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}

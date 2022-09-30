@@ -1,0 +1,195 @@
+{% extends 'base.html'%}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+Album_Photo
+{% endblock %}
+<!-- 제목 블록 End -->
+
+<!-- 스타일 블록  Start -->
+{% block extra-style%}
+<style>
+    .title {
+        color: rgb(54, 48, 59);
+        border-style: outset;
+        border-width: 5px;
+        border-radius: 10px;
+        padding-top: 10px;
+
+    }
+
+    /* .thumbnail {
+            border: 3px solid rgb(251, 187, 9);
+        } */
+
+    .album_title_list ul {
+        margin: 0px 0 0;
+        padding: 0;
+    }
+
+    .album_title_list ul {
+        display: inline-block;
+        width: 100%;
+        padding: 0 20px 0 20px;
+        /* font-size: 0; */
+    }
+
+    .album_title_list {
+        padding: 0;
+        border: 0;
+        text-align: center;
+    }
+
+    /* button */
+
+    .album_title_list ul li a {
+        border: 1px solid #eeeeee;
+        line-height: 20px;
+        padding: 3px 10px;
+        /* color: white; */
+        background-color: #F4D03F;
+
+    }
+
+    .album_title_list li a {
+        display: block;
+        padding: 10px 10px 10px 10px;
+        color: #414141;
+        border-radius: 100px;
+    }
+
+    .album_title_list li {
+        text-decoration: none;
+
+        display: inline-block;
+        width: 20%;
+        font-size: 14px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .w-btn-neon2 {
+        display: inline-block;
+        position: relative;
+        border: none;
+        min-width: 250px;
+        min-height: 50px;
+        background: linear-gradient(90deg,
+                rgba(129, 230, 217, 1) 0%,
+                rgba(79, 209, 197, 1) 100%);
+        border-radius: 1000px;
+        color: darkslategray;
+        cursor: pointer;
+        box-shadow: 10px 8px 22px rgba(79, 209, 197, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+    }
+    .w-btn-neon2:hover {
+        transform: scale(1.2);
+        text-decoration-line: none;
+    }
+
+    .w-btn-neon2:hover::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00ffcb;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+
+    .w-btn-neon22 {
+        display: inline-block;
+        position: relative;
+        border: none;
+        min-width: 100px;
+        min-height: 50px;
+        background: linear-gradient(90deg,
+                rgba(129, 230, 217, 1) 0%,
+                rgba(79, 209, 197, 1) 100%);
+        border-radius: 1000px;
+        color: darkslategray;
+        cursor: pointer;
+        box-shadow: 10px 8px 22px rgba(79, 209, 197, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+    }
+    .w-btn-neon22:hover {
+        transform: scale(1.2);
+        text-decoration-line: none;
+        
+    }
+
+    .w-btn-neon22:hover::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00ffcb;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+        border-radius: 3%;
+    }
+</style>
+{% endblock %}
+<!-- 스타일 블록 End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+
+<div class="container" id="top">
+    <h1> &#128248; Photo</h1>
+
+    <div class="album_title_list">
+        <ul>
+            {% for object in object_list %}
+            <li class="on">
+                <a class="w-btn-neon2 p-3 px-5" href="#{{ forloop.counter }}">
+                    <span>{{ object }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    {% for object in object_list %}
+    <span id="{{ forloop.counter }}"><br></span>
+    <h3 class="title d-inline-block p-3"> &#128486; {{ object }} &#128487; </h3> <br>
+    <span style="background-color:#fffd95">
+        개봉일 : {{ object.description }}
+    </span>
+    <div class="thumbnail">
+        {% for photo in object.photo_set.all %}
+        <a href="{{ photo.get_absolute_url }}">
+            <img src="{{ photo.image.url }}" alt="{{ photo }}" style="width:500px; height:300px;" class="img_link"></a>
+        {% endfor %}
+    </div>
+    <hr>
+
+    {% endfor %}
+    <div id="bottom"></div>
+    <div style="position: fixed; bottom: 40px; right: 40px;">
+        <a href="#top_" class="w-btn-neon22 p-2 px-5">top</a><br><br>
+        <a href="#bottom" class="w-btn-neon22 p-2 px-5">bottom</a>
+        
+    </div>
+</div>
+
+{% endblock %}
+<!-- 콘텐츠 블록 End -->

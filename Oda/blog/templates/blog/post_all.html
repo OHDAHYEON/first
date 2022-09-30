@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie{% endblock %}
+
+{% block extra-style %}
+<style>
+    .w-btn-neon2 {
+        position: relative;
+        border: none;
+        min-width: 200px;
+        min-height: 50px;
+        background: linear-gradient(
+            90deg,
+            rgba(129, 230, 217, 1) 0%,
+            rgba(79, 209, 197, 1) 100%
+        );
+        border-radius: 1000px;
+        color: darkslategray;
+        cursor: pointer;
+        box-shadow: 12px 12px 24px rgba(79, 209, 197, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .w-btn-neon2:hover {
+        transform: scale(1.2);
+        text-decoration-line: none;
+    }
+
+    .w-btn-neon2:hover::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00ffcb;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        text-decoration-line: none;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+        border-radius: 4%;
+    }
+    .img_link:hover img {
+        transition-duration: 0.7s;
+        border-radius: 4% 4% 0 0;
+    }
+    .card-body:hover {
+        color: blueviolet;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1> &#128253; Movie</h1>
+    <br>
+    <div class="row">
+    {% for post in posts %}
+    <div class="col-4">
+        <div class="card">
+            <a class="img_link" href="{{ post.get_absolute_url }}">
+            <img src="{{ post.image.url }}" alt="" class="card-img-top" />
+            <div class="card-body">
+                <h3 class="card-title">{{ post.title }}</h3>
+                <!-- {{ post.modify_dt|date:"N d, Y" }} -->
+                <p class="card-text">{{ post.description }}</p>
+            </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    <br>
+
+    <div>
+        <span>
+            <h4>page {{ page_obj.number }} &#128450; </h4><br>
+                {% if page_obj.has_previous %}
+                <a class="w-btn-neon2 p-3 px-5" href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+                {% endif %}
+    
+                
+    
+                {% if page_obj.has_next %}
+                <a class="w-btn-neon2 p-3 px-5" href="?page={{ page_obj.next_page_number }}">NextPage</a>
+                {% endif %}
+        </span>
+    </div>
+    
+</div>
+
+{% endblock %}
+

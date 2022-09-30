@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}bookmark_detail.html{% endblock %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<ul>
+    <li>
+        <a href="{{ object.url }}">{{ object.url }}</a>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark_Detail</title>
+</head>
+<body>
+    <h1>북마크 디테일</h1>
+    <ul>
+        <li>
+            <a href="{{ object.url }}">{{ object.url }}</a>
+        </li>
+    </ul>
+</body>
+</html> {% endcomment %}

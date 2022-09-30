@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}post_archive_month.html{% endblock %}
+
+{% block extra-style %}
+<style>
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        text-decoration-line: none;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+        border-radius: 4%;
+    }
+    .img_link:hover img {
+        transition-duration: 0.7s;
+        border-radius: 4% 4% 0 0;
+    }
+    .card-body:hover {
+        color: blueviolet;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Post for {{ month|date:"N, Y"}} &#127916; </h1>
+    <br>
+
+    <h3>movie of the month</h3>
+
+    <br>
+    <div>
+        <div class="row">
+            {% for post in object_list %}
+            <div class="col-4">
+                <div class="card">
+                    <a class="img_link" href="{{ post.get_absolute_url }}">
+                        <img src="{{ post.image.url }}" alt="" class="card-img-top" />
+                        <div class="card-body">
+                            <h3 class="card-title">{{ post.title }}</h3>
+
+                            <p class="card-text">{{ post.description }}</p>
+
+                            post - {{ post.modify_dt|date:"N d, Y" }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,231 @@
+{% extends 'base.html'%}
+
+<!-- 제목 블럭 Start (기본값 My Blog Page) -->
+{% block title %}
+도토리 숲 굿즈
+{% endblock %}
+<!-- 제목 블록 End -->
+
+<!-- 스타일 블록  Start -->
+{% block extra-style%}
+<style>
+    /* category */
+    .list_item_category ul {
+    margin: 0px 0 0;
+    padding: 0;
+    }
+    .list_item_category ul {
+    display: inline-block;
+    width: 100%;
+    padding: 0 20px 0 20px;
+    /* font-size: 0; */
+    }
+    .list_item_category {
+    padding: 0;
+    border: 0;
+    text-align: center;
+    }
+    /* button */
+    
+    .list_item_category ul li a {
+    border: 1px solid #eeeeee;
+    line-height: 20px;
+    padding: 3px 10px;
+    /* color: white; */
+    background-color: #F4D03F;
+
+    }
+    .list_item_category li a {
+    display: block;
+    padding: 10px 10px 10px 10px;
+    color: #414141;
+    border-radius: 100px;
+    }
+    .list_item_category li {
+        text-decoration: none;
+
+    display: inline-block;
+    width: 20%;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    }
+
+    /* goods_list */
+    .goods_list {
+        max-width: 1260px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .goods_list_cont {
+        position: relative;
+        width: 100%;
+        margin: 20px 0 0 0;
+    }
+
+    .item_cont {
+        text-align: center;
+        padding: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: inline-block;
+    }
+
+    .item_photo_box {
+        border: 0;
+        overflow: visible;
+        display: inline-block !important;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .item_photo_box a {
+        overflow: hidden;
+        display: block;
+        height: 100%;
+    }
+
+    .item_photo_box a>img {
+        border: 0;
+        max-width: 100%;
+        transition: all .25s ease;
+        height: auto;
+    }
+
+    .PJ_good_table {
+        display: table;
+        width: 100%;
+    }
+
+    .PJ_goods_review {
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .goods_list_cont ul li {
+        margin: 0 0 30px 0;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        vertical-align: top;
+        font-size: 15px;
+    }
+    .w-btn-neon2 {
+        display: inline-block;
+        position: relative;
+        border: none;
+        min-width: 250px;
+        min-height: 50px;
+        background: linear-gradient(
+            90deg,
+            rgba(129, 230, 217, 1) 0%,
+            rgba(79, 209, 197, 1) 100%
+        );
+        border-radius: 1000px;
+        color: darkslategray;
+        cursor: pointer;
+        box-shadow: 10px 8px 22px rgba(79, 209, 197, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .w-btn-neon2:hover {
+        transform: scale(1.2);
+        text-decoration-line: none;
+    }
+
+    .w-btn-neon2:hover::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00ffcb;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+    .item_name {
+        color: blue;
+    }
+    .item_name:hover {
+        color: blueviolet;
+    }
+</style>
+{% endblock %}
+<!-- 스타일 블록 End -->
+
+<!-- 콘텐츠 블록 Start -->
+{% block content %}
+
+<div class="container">
+    <h1> &#128717; Market</h1>
+
+    <div class="list_item_category">
+        <ul>
+            {% for cate in cate_list %}
+            <li class="on">
+                <a class="w-btn-neon2 p-3 px-5" href="{% url 'market:market_cate_list' cate.id %}"><span>{{ cate }}</span></a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- goods -->
+    <!-- <div class="goods">       
+    </div> -->
+
+    
+          
+        
+    <div class="goods_list">
+        <div class="goods_list_cont">
+            <div class="item_gallery_type">
+                <ul>
+                    {% for goods in goods_list %}
+                    <li style="width:33%;">
+                        <div class="item_cont">
+                            <div class="item_photo_box">
+                                <a href="{{ goods.url }}">
+                                    <img src="{{ goods.image.url }}"
+                                        width="285" alt="{{ goods.item_name }}" title="{{ goods.item_name }}"
+                                        class="middle">
+                                </a>
+                            </div>
+                            <!-- //item_photo_box -->
+                            <div class="PJ_good_table"
+                                onclick="location.href='{{ goods.url }}'">
+                                <div class="item_info_cont">
+                                    <div class="item_icon_box">
+
+                                    </div>
+                                    <div class="item_tit_box">
+                                            <strong class="item_name">{{ goods.item_name }}</strong>
+                                    </div>
+                                    <!-- //item_tit_box -->
+                                    <div class="item_money_box">
+                                        <strong class="item_price">
+                                            <span> {{ goods.price }} </span>
+                                        </strong>
+                                    </div>
+                                    <!-- //item_money_box -->
+                                    <!-- //item_number_box -->
+                                    <!-- <div class="PJ_goods_review_cnt"><span>67</span></div> -->
+                                </div>
+                            </div>
+                            <!-- //item_info_cont -->
+                        </div>
+                        <!-- //item_cont -->
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- 콘텐츠 블록 End -->

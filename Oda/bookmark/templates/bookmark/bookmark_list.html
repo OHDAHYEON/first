@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}bookmark_list.html{% endblock %}
+
+{% block extra-style %}
+<style type="text/css">
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_active %}
+    <a href="btn btn-outline-dark" href="{% url 'bookmark:add' %}">글쓰기</a>
+    <a href="btn btn-outline-dark" href="{% url 'bookmark:change' %}">내 글보기</a>
+    
+{% endif %}
+
+<h1>Bookmark List</h1>
+<ul>
+    {% for bm in object_list %}
+    <li>
+        <a href="{% url 'bookmark:detail' bm.id %}">{{ bm }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark_List</title>
+</head>
+<body>
+    <h1>북마크 리스트</h1>
+    <ul>
+        {% for bm in object_list %}
+        <li>
+            <a href="{% url 'bookmark:detail' bm.id %}">{{ bm }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html> {% endcomment %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}스튜디오 지브리{% endblock %}
+
+{% block extra-style %}
+<style type="text/css">
+    .home-image {
+        background-image: url("{% static 'img/gi.png' %}");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+        /* 120% */
+        height: 700px;
+        /* width: 100vw; */
+        border-top: 1rem solid white;
+        border-bottom: 10px soid #ccc;
+        /* padding: 15px 0 0 20px; */
+    }
+    .title {
+        color: #c80;
+        font-weight:bold;
+    }
+    .powered {
+        position: relative;
+        top: 77%;
+        color: #cc0;
+        font-style: italic;
+    }
+    .img_link:hover {
+        transition: all;
+        transition-duration: 0.7s;
+        text-decoration-line: none;
+        transform: scale(1.2);
+        box-shadow: 0 0 80px rgb(69, 69, 69);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="home-image">
+        <!-- <h1 class="title">
+            Studio Ghibli 
+        </h/> -->
+        <h4 class="powered">
+            {% comment %} <i class="fas fa-arrow-circle-right"></i> {% endcomment %}
+             {% comment %} powered by django and bootstrap. {% endcomment %}
+        </h4>
+    </div>
+
+    <hr style="margin: 10px 0;">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3> &#128161; Studio Ghibli &#128161; </h3>
+            <p>정식 명칭 : 株式会社スタジオジブリ <br>
+                영어 : <span style="background-color:#fffd95">Studio Ghibli Inc.</span><br>
+                한글 : 주식회사 스튜디오 지브리<br>
+                국가 : 일본<br>
+                업종 : 애니메이션 영화 기획 및 제작업<br>
+                제작사 : 톱 크래프트 스튜디오<br>
+                설립일 : 1985년 6월 15일<br>
+                설립자 : 미야자키 하야오, 타카하타 이사오, 스즈키 토시오<br>
+                대표자 : 호시노 코지 (대표이사 회장 겸 사장), 스즈키 토시오 (대표이사 프로듀서)<br>
+                직원수 : 280명 (2021년 기준)<br>
+                본사 : 도쿄도 코가네이시 카지노쵸 1초메 4-25<br>
+            </p>
+        </div>
+        <div class="col-sm-6">
+            <a href="https://www.ghibli.jp/">
+                <img src="static/img/cha.jpg" width="540px" height="340px"  class="img_link">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
